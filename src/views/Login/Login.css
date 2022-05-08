@@ -1,0 +1,42 @@
+/*
+ * login
+ */
+.container {
+  width: 600px;
+  margin: 0 auto;
+}
+
+.login {
+  margin-top: 80px;
+}
+
+.login img {
+  width: 560px;
+}
+
+.login__ttl {
+  margin: 40px 0;
+  font-size: 36px;
+  text-align: center;
+  font-family: 'KiwiMaru';
+}
+
+.login__card {
+  width: 400px;
+  height: 300px;
+  padding: 50px 100px;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.login__input-ttl {
+  display: block;
+  margin-bottom: 14px;
+}
+
+.login input:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px  inset;
+  width: 400px;
+  margin-bottom: 30px;
+  padding: 6px 10px;
+}
