@@ -1,0 +1,66 @@
+/*
+ * login
+ */
+
+.container {
+  width: 600px;
+  margin: 0 auto;
+  font-family: 'KiwiMaru';
+}
+
+.login {
+  margin-top:60px;
+  img {
+    width: 560px;
+  }
+  &__ttl {
+    margin: 40px 0;
+    font-size: 36px;
+    text-align: center;
+  }
+  &__card {
+    width: 400px;
+    height: 300px;
+    padding: 50px 100px;
+    background: #fff;
+    border-radius: 5px;
+  }
+  &__input-ttl {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+  input:-webkit-autofill{
+    box-shadow: 0 0 0px 1000px $sub-color inset;
+    width: 400px;
+    margin-bottom: 20px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+  }
+  &__password-change {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  &__password-forgot {
+    display:flex;
+    justify-content: center;
+    margin: 10px 0;
+    font-size: 14px;
+  }
+  &__button-wrapper {
+    margin-top: 30px;
+    text-align: center;
+  }
+  &__button {
+    @include button-style();
+    border: none;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: $base-color;
+}
