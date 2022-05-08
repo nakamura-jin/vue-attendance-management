@@ -6,4 +6,7 @@
   </div>
 </template>
 
-<style lang="scss" src="@/styles/global.scss"></style>
+<style lang="scss">
+  @import "@/styles/global.scss";
+  @import "@/assets/css/reset.scss";
+</style>
