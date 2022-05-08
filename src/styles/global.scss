@@ -1,0 +1,13 @@
+/*
+ *  global
+ */
+
+
+@import './setup/_transition.scss';
+@import './setup/_fonts.scss';
+@import './setup/_variables.scss';
+@import './setup/_button.scss';
+
+body {
+  background: $back-color;
+}

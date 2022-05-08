@@ -1,0 +1,8 @@
+$local-font-path: '~@/assets/fonts';
+
+@font-face {
+  font-family: 'KiwiMaru';
+  font-style: normal;
+  font-weight: 400;
+  src:url($local-font-path + '/KiwiMaru/KiwiMaru-Medium.ttf') format('truetype');
+}
