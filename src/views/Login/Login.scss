@@ -30,7 +30,7 @@
     margin-bottom: 10px;
     font-size: 14px;
   }
-  input:-webkit-autofill{
+  input:-webkit-autofill, input{
     box-shadow: 0 0 0px 1000px $sub-color inset;
     width: 400px;
     margin-bottom: 20px;
