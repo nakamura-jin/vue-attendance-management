@@ -33,7 +33,9 @@
 
 <script>
 import axios from "axios"
+import loading from '@/mixins/loading'
 export default {
+  mixins: [loading],
   data() {
     return {
       form: {
@@ -44,12 +46,15 @@ export default {
   },
   methods: {
     async login() {
+      this.startLoading();
       await axios.post('/login', this.form)
       .then(res => {
         this.$cookies.set('token', res.data.access_token)
-        //権限者者beforeEarchで権限確認して遷移先決める
-        this.$router.push('#')
       })
+      setTimeout(() => {
+        this.$router.push('/')
+        this.finishLoading();
+      }, 2000)
     }
   }
 }
