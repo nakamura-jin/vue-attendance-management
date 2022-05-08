@@ -1,0 +1,30 @@
+/*
+ * Header
+ */
+.header {
+  height: 60px;
+  background: #fff;
+  &__container {
+    display:flex;
+    justify-content: space-between;
+    margin: 0 60px;
+  }
+  &__logo {
+      img {
+      width: 240px;
+      height: 40px;
+      margin-top: 10px;
+    }
+  }
+  &__nav {
+    display: flex;
+    line-height: 60px;
+  }
+  &__user {
+    margin-right: 20px;
+  }
+  &__logout {
+    font-size: 24px;
+    color: $base-color;
+  }
+}

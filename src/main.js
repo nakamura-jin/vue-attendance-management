@@ -4,6 +4,16 @@ import router from './router'
 import store from './store'
 import '@/services/axios'
 
+//font awesome
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import {
+  faUser,
+  faList,
+  faCalendarDays,
+} from "@fortawesome/free-solid-svg-icons";
+library.add(faUser, faList, faCalendarDays);
+Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 // cookie
 import VueCookies from 'vue-cookies'
