@@ -6,5 +6,5 @@ export default {
     finishLoading() {
       this.$store.commit('FINISH_LOADING')
     }
-  }
+  },
 }

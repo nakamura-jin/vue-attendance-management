@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login/Login.vue'
 import Root from '../views/Root/Root.vue'
+import Attendance from '../views/Attendance/Attendance.vue'
 
 Vue.use(VueRouter)
 
@@ -12,7 +13,13 @@ const routes = [
   },
   {
     path: '/',
-    component: Root
+    component: Root,
+    children: [
+      {
+        path: '/attendance',
+        component: Attendance
+      }
+    ]
   }
 ]
 

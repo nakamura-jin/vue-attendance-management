@@ -1,0 +1,35 @@
+/*
+ * Modal
+ */
+.modal {
+  position: absolute;
+  width: 100%;
+  height: 560px;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 100;
+}
+
+.modal__card {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 400px;
+  padding: 30px 20px;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.modal__head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal__today {
+  font-size: 24px;
+}
+
+textarea {
+  border: 1px solid #000;
+}
