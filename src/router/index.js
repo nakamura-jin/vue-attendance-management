@@ -1,27 +1,31 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../views/Login/Login.vue'
 import Root from '../views/Root/Root.vue'
-import Attendance from '../views/Attendance/Attendance.vue'
+import { authGuard } from './authGuard'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/login',
-    component: Login
+    path: "/login",
+    component: () =>import(/* webpackChankName "login"*/ "../views/Login/Login.vue"),
   },
   {
-    path: '/',
+    path: "/",
     component: Root,
     children: [
       {
-        path: '/attendance',
-        component: Attendance
-      }
-    ]
-  }
-]
+        path: "/",
+        redirect: "attendance",
+      },
+      {
+        path: "/attendance",
+        beforeEnter: authGuard,
+        component: () =>import(/* webpackChankName "Attendance" */ "../views/Attendance/Attendance.vue"),
+      },
+    ],
+  },
+];
 
 const router = new VueRouter({
   mode: 'history',
