@@ -1,0 +1,37 @@
+/*
+ * AttendanceTable
+ */
+
+.list {
+  width: 100%;
+  background: #fff;
+  margin-top: 26px;
+  &__ttl-day {
+    width: 80px;
+  }
+  &__ttl-start,
+  &__ttl-end,
+  &__ttl-breake {
+    width: 120px;
+  }
+  &__ttl-remarks {
+    width: 400px;
+  }
+  &__ttl-edit {
+    width: 80px
+  }
+  &__edit {
+    color: $base-color;
+  }
+}
+
+table {
+  border: 1px solid #999;
+}
+
+th, td {
+  height: 38px;
+  line-height: 38px;
+  text-align: center;
+  border: 1px solid #999;
+}

@@ -1,0 +1,27 @@
+/*
+ * Attendance
+ */
+
+.attendance {
+  position: relative;
+  width: 900px;
+  margin: 0 auto;
+  font-family: $main-font;
+  &__ttl {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 36px;
+  }
+  &__select {
+    text-align: right;
+    margin: 20px 0 0 0;
+  }
+  &__month {
+    width: 200px;
+    padding: 6px 10px;
+    background: #fff;
+    color: #999;
+    border-radius: 30px;
+    text-align: center;
+  }
+}

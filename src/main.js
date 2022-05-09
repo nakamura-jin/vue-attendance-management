@@ -11,8 +11,10 @@ import {
   faUser,
   faList,
   faCalendarDays,
+  faPen,
+  faXmark
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faUser, faList, faCalendarDays);
+library.add(faUser, faList, faCalendarDays, faPen, faXmark);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 // cookie
