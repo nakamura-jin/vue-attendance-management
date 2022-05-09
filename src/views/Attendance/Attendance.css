@@ -1,0 +1,14 @@
+/*
+ * Attendance
+ */
+.attendance {
+  width: 960px;
+  margin: 0 auto;
+}
+
+font-fa
+.attendance__ttl {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 36px;
+}
