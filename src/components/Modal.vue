@@ -3,7 +3,7 @@
 </style>
 
 <template>
-  <div class="modal">
+  <div class="modal" v-if="modal">
     <div class="modal__card">
       <div class="modal__head">
         <h3 class="modal__today">5/9(月)</h3>
@@ -31,3 +31,29 @@
     </div>
   </div>
 </template>
+
+<script>
+import axios from 'axios'
+export default {
+  data() {
+    return {
+      holiday: true
+    }
+  },
+  computed: {
+    modal() {
+      return this.holiday
+    }
+  },
+  methods: {
+    async check_modal() {
+      await axios.get('holiday').then(response => {
+        this.holiday = response.data.holiday
+      })
+    }
+  },
+  created() {
+    this.check_modal()
+  }
+}
+</script>
