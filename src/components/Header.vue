@@ -10,8 +10,25 @@
       </div>
       <div class="header__nav">
         <p class="header__user">ログイン者名</p>
-        <div class="header__logout"><font-awesome-icon icon="fa-solid fa-user" /></div>
+        <div class="header__logout">
+          <button @click="logout">
+            <font-awesome-icon icon="fa-solid fa-user" />
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    logout() {
+      // this.$cookies.remove('token')
+      sessionStorage.removeItem('token')
+      sessionStorage.removeItem('user')
+      this.$router.push('/login')
+    }
+  }
+}
+</script>

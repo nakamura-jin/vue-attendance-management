@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -46,7 +47,7 @@ export default {
   },
   methods: {
     async check_modal() {
-      await this.$axios.get('holiday').then(response => {
+      await axios.get('holiday').then(response => {
         this.holiday = response.data.holiday
       })
     }

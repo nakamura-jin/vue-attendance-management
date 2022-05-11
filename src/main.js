@@ -4,10 +4,8 @@ import router from './router'
 import store from './store'
 
 
-// axios plugin
-import AxiosPlugin from "@/plugins/axios";
-Vue.use(AxiosPlugin);
-// import '@/services/axios'
+// axios
+import '@/services/axios'
 
 //font awesome
 import { library } from "@fortawesome/fontawesome-svg-core";
