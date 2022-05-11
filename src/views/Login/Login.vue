@@ -12,6 +12,7 @@
       <div class="login__form">
         <form @submit.prevent="login">
           <div class="login__card">
+            <span v-if="error" class="login__error">{{ error }}</span>
             <template class="login__worker_id">
               <label class="login__input-ttl">社員ID: </label>
               <input type="text" v-model="form.worker_id"/>
@@ -32,7 +33,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import loading from '@/mixins/loading'
 export default {
   mixins: [loading],
@@ -41,20 +41,27 @@ export default {
       form: {
         worker_id: '',
         password: ''
-      }
+      },
+      error: ''
     }
   },
   methods: {
     async login() {
       this.startLoading();
-      await axios.post('/login', this.form)
+      await this.$axios.post('/login', this.form)
       .then(res => {
         this.$cookies.set('token', res.data.access_token)
+        setTimeout(() => {
+          this.$router.push('/')
+          this.finishLoading();
+        }, 2000)
       })
-      setTimeout(() => {
-        this.$router.push('/')
-        this.finishLoading();
-      }, 2000)
+      .catch(() => {
+        setTimeout(() => {
+          this.error = '認証に失敗しました'
+          this.finishLoading();
+        }, 1000)
+      })
     }
   }
 }

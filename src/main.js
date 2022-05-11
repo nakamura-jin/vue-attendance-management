@@ -2,7 +2,12 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import '@/services/axios'
+
+
+// axios plugin
+import AxiosPlugin from "@/plugins/axios";
+Vue.use(AxiosPlugin);
+// import '@/services/axios'
 
 //font awesome
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -18,8 +23,8 @@ library.add(faUser, faList, faCalendarDays, faPen, faXmark);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 // cookie
-import VueCookies from 'vue-cookies'
-Vue.use(VueCookies)
+import VueCookies from "vue-cookies";
+Vue.use(VueCookies);
 
 Vue.config.productionTip = false
 

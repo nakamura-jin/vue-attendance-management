@@ -28,6 +28,12 @@
     background: #fff;
     border-radius: 5px;
   }
+  &__error {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    color: red;
+  }
   &__input-ttl {
     display: block;
     margin-bottom: 10px;

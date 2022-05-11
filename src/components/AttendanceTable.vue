@@ -14,11 +14,14 @@
         <th class="list__ttl-edit">編集</th>
       </tr>
       <tr v-for="(data, index) in setDate" :key="index">
-        <td class="list__day">{{ data.day }}({{ data.week  }})</td>
-        <td class="list__start">9:00</td>
-        <td class="list__end">18:00</td>
-        <td class="list__breake">1:00</td>
-        <td class="list__remarks">テストテスト。。。</td>
+        <td class="list__day">{{ data.day }}({{ data.week }})</td>
+        <td class="list__start">{{ getAttendance(data).start_time }}</td>
+        <td class="list__end">{{ getAttendance(data).end_time }}</td>
+        <td class="list__breake">{{ getAttendance(data).breake_time }}</td>
+        <template>
+          <td class="list__remarks" v-if="getAttendance(data).remarks">{{ getAttendance(data).remarks | omittedText20}}</td>
+          <td class="list__remarks" v-else></td>
+        </template>
         <td class="list__edit"><button><font-awesome-icon icon="fa-solid fa-pen" /></button></td>
       </tr>
     </table>
@@ -26,29 +29,45 @@
 </template>
 
 <script>
-import dayjs from 'dayjs'
 import week from '@/mixins/week'
+import attendance from '@/mixins/attendance'
+
 export default {
-  mixins: [week],
+  mixins: [week, attendance],
   data() {
     return {
-      setDate: []
+      setDate: [],
+      attendanceItem: []
+    }
+  },
+  filters: {
+    omittedText20(text) {
+      return text.length > 20 ? text.substring(0, 20) + '...' : text;
+    },
+  },
+  computed: {
+    setMonth() {
+      return this.$store.getters['month']
+    },
+    attendance() {
+      return this.$store.getters['attendance/attendance']
     }
   },
   methods: {
-    makeDay() {
-      const day = []
-      const end = parseInt(dayjs().endOf('month').format('D'))
-      for(let i = 1; i <= end; i++) {
-        let weekFormat = dayjs().date(i).format('ddd')
-        let week = this.checkWeek(weekFormat)
-        day.push({day: i, week: week})
-      }
-      this.setDate = day
+    getAttendance(data){
+      let list = {}
+      this.attendance.forEach(item => {
+        if(item.date === data.day) {
+          list = item
+        }
+      })
+      return list
     }
   },
   created() {
-    this.makeDay()
+    this.createDay()
+    this.getUser()
+    this.myAttendance(this.year, this.month)
   }
 }
 </script>
