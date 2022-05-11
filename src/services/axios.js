@@ -1,5 +1,24 @@
 import axios from 'axios'
-import VueCookies from 'vue-cookies'
 
 axios.defaults.baseURL = 'http://localhost:8000/api'
-axios.defaults.headers.common["Authorization"]  = 'Bearer ' + VueCookies.get('token')
+axios.defaults.headers.common["Authorization"] = 'Bearer ' + sessionStorage.getItem('token')
+
+
+class AuthService {
+  constructor() {
+    this.auth = axios.create()
+  }
+
+  login(request) {
+    const interceptor = this.auth.interceptors.response.use(response => {
+      sessionStorage.setItem('token', response.data.refresh_token)
+      sessionStorage.setItem('user', JSON.stringify(response.data.user))
+    })
+    const url = "/login";
+    return this.auth.post(url, request).finally(() => {
+      this.auth.interceptors.response.eject(interceptor);
+    });
+  }
+}
+
+export default new AuthService()

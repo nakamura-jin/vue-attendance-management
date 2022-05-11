@@ -23,7 +23,7 @@
             </template>
             <span class="login__password-forgot">※ パスワードを忘れた場合は担当者へご連絡ください</span>
             <div class="login__button-wrapper">
-              <button class="login__button">登録</button>
+              <button class="login__button">ログイン</button>
             </div>
           </div>
         </form>
@@ -34,6 +34,7 @@
 
 <script>
 import loading from '@/mixins/loading'
+import auth from '@/services/axios'
 export default {
   mixins: [loading],
   data() {
@@ -47,20 +48,12 @@ export default {
   },
   methods: {
     async login() {
-      this.startLoading();
-      await this.$axios.post('/login', this.form)
-      .then(res => {
-        this.$cookies.set('token', res.data.access_token)
+      this.startLoading()
+      auth.login(this.form).then(() => {
         setTimeout(() => {
-          this.$router.push('/')
-          this.finishLoading();
-        }, 2000)
-      })
-      .catch(() => {
-        setTimeout(() => {
-          this.error = '認証に失敗しました'
-          this.finishLoading();
-        }, 1000)
+          this.$router.push('/attendance')
+          this.finishLoading()
+        }, 3000)
       })
     }
   }
