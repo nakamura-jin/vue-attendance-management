@@ -29,11 +29,10 @@
 </template>
 
 <script>
-import week from '@/mixins/week'
 import attendance from '@/mixins/attendance'
 
 export default {
-  mixins: [week, attendance],
+  mixins: [attendance],
   data() {
     return {
       setDate: [],
@@ -66,7 +65,6 @@ export default {
   },
   created() {
     this.createDay()
-    this.getUser()
     this.myAttendance(this.year, this.month)
   }
 }

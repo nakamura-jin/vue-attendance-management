@@ -12,8 +12,10 @@
 
 <script>
 import dayjs from 'dayjs'
+import attendance from '@/mixins/attendance'
 
 export default {
+  mixins: [attendance],
   data() {
     return {
       selectMonth: [],
@@ -27,6 +29,7 @@ export default {
   watch: {
     setMonth(nVal) {
       this.$store.dispatch('month', nVal)
+      this.changeList(nVal)
     }
   },
   methods: {
