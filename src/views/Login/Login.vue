@@ -54,6 +54,11 @@ export default {
           this.$router.push('/attendance')
           this.finishLoading()
         }, 3000)
+      }).catch(() => {
+        setTimeout(() => {
+          this.error = '認証に失敗しました'
+          this.finishLoading()
+        }, 1000)
       })
     }
   }

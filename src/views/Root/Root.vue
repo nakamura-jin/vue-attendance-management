@@ -1,6 +1,6 @@
 <template>
   <div class="app-root">
-    <Modal />
+    <Loader />
     <Header />
     <main class="app-main">
       <transition name="fade" mode="out-in">
@@ -12,12 +12,11 @@
 
 <script>
 import Header from '@/components/Header.vue'
-import Modal from '@/components/Modal'
-
+import Loader from '../../components/Loader.vue'
 export default {
   components: {
     Header,
-    Modal
+    Loader
   },
 }
 </script>

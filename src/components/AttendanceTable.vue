@@ -13,7 +13,7 @@
         <th class="list__ttl-remarks">備考</th>
         <th class="list__ttl-edit">編集</th>
       </tr>
-      <tr v-for="(data, index) in setDate" :key="index">
+      <tr v-for="data in setDate" :key="data.day">
         <td class="list__day">{{ data.day }}({{ data.week }})</td>
         <td class="list__start">{{ getAttendance(data).start_time }}</td>
         <td class="list__end">{{ getAttendance(data).end_time }}</td>
@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       setDate: [],
-      attendanceItem: []
+      attendanceItem: [],
     }
   },
   filters: {
@@ -48,14 +48,14 @@ export default {
     setMonth() {
       return this.$store.getters['month']
     },
-    attendance() {
+    attendanceList() {
       return this.$store.getters['attendance/attendance']
     }
   },
   methods: {
     getAttendance(data){
       let list = {}
-      this.attendance.forEach(item => {
+      this.attendanceList.forEach(item => {
         if(item.date === data.day) {
           list = item
         }
