@@ -8,10 +8,16 @@ export default {
     return {
       year: parseInt(dayjs().format("YYYY")),
       month: parseInt(dayjs().format("MM")),
+      date: parseInt(dayjs().format("DD")),
     };
   },
+  computed: {
+
+  },
   methods: {
-    //曜日を日本語に変換
+    /**
+     * 曜日を日本語に変換
+     */
     checkWeek(week) {
       if (week === "Sun") return "日";
       if (week === "Mon") return "月";
@@ -22,7 +28,9 @@ export default {
       if (week === "Sat") return "土";
     },
 
-    //リストの日付設定
+    /**
+     * リストの日付設定
+     */
     createDay() {
       const day = [];
       const end = parseInt(dayjs().endOf("month").format("D"));
@@ -34,7 +42,9 @@ export default {
       this.setDate = day;
     },
 
-    //リスト取得
+    /**
+     * リスト取得
+     */
     async myAttendance(setYear, setMonth) {
       const id = JSON.parse(sessionStorage.getItem("user")).id;
       await axios
@@ -50,10 +60,15 @@ export default {
             "attendance/myAttendance",
             response.data.attendance
           );
+          setTimeout(() => {
+            this.finishLoading();
+          }, 500);
         });
     },
 
-    //リストの月変更
+    /**
+     * リストの月変更
+     */
     changeList(nMonth) {
       let data = nMonth.replace(/[^0-9]/g, "");
       let year = data.slice(0, 4);
