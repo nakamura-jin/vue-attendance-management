@@ -19,8 +19,9 @@
         <td class="list__end">{{ getAttendance(data).end_time }}</td>
         <td class="list__breake">{{ getAttendance(data).breake_time }}</td>
         <template>
-          <td class="list__remarks" v-if="getAttendance(data).remarks">{{ getAttendance(data).remarks | omittedText20}}</td>
-          <td class="list__remarks" v-else></td>
+          <td class="list__remarks" v-if="getAttendance(data).remarks && hoverFlag !== data.day" @mouseover="hoverAction(data)">{{ getAttendance(data).remarks | omittedText20}}</td>
+          <td class="list__remarks" v-else-if="getAttendance(data).remarks && hoverFlag === data.day" @mouseleave="hoverLeave(data)">{{ getAttendance(data).remarks }}</td>
+          <td class="list__remarks" v-else>なし</td>
         </template>
         <td class="list__edit"><button><font-awesome-icon icon="fa-solid fa-pen" /></button></td>
       </tr>
@@ -32,11 +33,11 @@
 import attendance from '@/mixins/attendance'
 
 export default {
-  mixins: [attendance],
+  mixins: [ attendance ],
   data() {
     return {
-      setDate: [],
       attendanceItem: [],
+      hoverFlag: '',
     }
   },
   filters: {
@@ -47,6 +48,9 @@ export default {
   computed: {
     setMonth() {
       return this.$store.getters['month']
+    },
+    setDate() {
+      return this.$store.getters['attendance/dateList']
     },
     attendanceList() {
       return this.$store.getters['attendance/attendance']
@@ -61,6 +65,12 @@ export default {
         }
       })
       return list
+    },
+    hoverAction(data) {
+      this.hoverFlag = data.day
+    },
+    hoverLeave() {
+      this.hoverFlag = ''
     }
   },
   created() {

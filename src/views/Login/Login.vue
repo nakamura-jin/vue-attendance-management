@@ -34,7 +34,7 @@
 
 <script>
 import loading from '@/mixins/loading'
-import auth from '@/services/axios'
+import auth from '@/services/auth'
 export default {
   mixins: [loading],
   data() {
@@ -50,10 +50,10 @@ export default {
     async login() {
       this.startLoading()
       auth.login(this.form).then(() => {
-        setTimeout(() => {
-          this.$router.push('/attendance')
-          this.finishLoading()
-        }, 3000)
+      setTimeout(() => {
+        this.$router.push('/attendance')
+        this.finishLoading()
+      },3000)
       }).catch(() => {
         setTimeout(() => {
           this.error = '認証に失敗しました'
