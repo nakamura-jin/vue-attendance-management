@@ -3,7 +3,7 @@
 </style>
 
 <template>
-  <div class="modal">
+  <div class="modal" v-if="isModal">
     <div class="modal__card">
       <div class="modal__head">
         <h3 class="modal__today">{{ today }}({{ week }})</h3>
@@ -12,25 +12,25 @@
       <div class="modal__time">
         <div class="modal__start">
           <label>開始時間</label>
-          <input type="text" disabled :value="start_time">
-          <button class="modal__set-time" @click="start(start_time)">打刻</button>
+          <input type="text" v-model="start_time">
+          <button class="modal__set-time" @click="start()">打刻</button>
         </div>
         <div class="modal__end">
           <label>終了時間</label>
-          <input v-if="!registedStart" type="text" disabled>
-          <input v-else type="text" :value="end_time" disabled>
+          <input type="text" v-model="end_time">
           <button class="modal__set-time" @click="end(end_time)">打刻</button>
         </div>
         <div class="modal__breake">
           <label>休憩時間</label>
-          <input type="text" placeholder="1:00">
+          <input type="text" v-model="breake_time">
         </div>
       </div>
       <div class="modal__business">
-        <textarea class="modal__content" placeholder="業務内容"></textarea>
+        <textarea class="modal__content" placeholder="業務内容" v-model="remarks"></textarea>
       </div>
       <div class="modal__register">
-        <button @click="register">登録</button>
+        <button v-if="started" @click="register">登録</button>
+        <button v-else @click="sheetUpdate(end_time, breake_time)">登録済み</button>
       </div>
     </div>
   </div>
@@ -40,18 +40,35 @@
 import dayjs from 'dayjs'
 import loading from '@/mixins/loading'
 import attendance from '@/mixins/attendance'
+
 import axios from 'axios'
 export default {
   mixins:[loading, attendance],
   data() {
     return {
       today: dayjs().format('M/D'),
-      start_time: '9:00',
-      end_time: dayjs().format('H:m'),
-      breake_time: '1:00',
+      start_time: null,
+      end_time: null,
+      breake_time: null,
+      remarks: '',
       registedStart: false,
       timeError: '',
-      week: ''
+      week: '',
+    }
+  },
+  computed: {
+    isModal() {
+      return this.$store.getters['attendance/modal']
+    },
+    started() {
+      const list = this.$store.getters['attendance/attendance']
+      for(let i = 0; i < list.length; i++) {
+        if(list[i].date === dayjs().date()) {
+          this.$store.dispatch('attendance/setTodaySheet', list[i].id)
+          return false
+        }
+      }
+      return true
     }
   },
   methods: {
@@ -60,28 +77,27 @@ export default {
      */
     setWeek() {
       const today = dayjs().date();
-      const todaysWeek = this.checkWeek(dayjs().date(today).format("ddd"))
-      this.week = todaysWeek
+      this.week = this.checkWeek(dayjs().date(today).format("ddd"))
     },
     /**
      * モーダル閉じる
      */
     closeModal() {
-      this.$emit('close-modal')
+      this.$store.dispatch('attendance/changeModal', false)
     },
 
     /**
      * 開始時間の設定
      */
-    start(time) {
-      console.log(time)
+    start() {
+      this.start_time = dayjs().format('H:mm')
     },
 
     /**
      * 終了時間の設定
      */
-    end(time) {
-      console.log(time)
+    end() {
+      this.end_time = dayjs().format('H:mm')
     },
 
     /**
@@ -98,9 +114,28 @@ export default {
         user_id: id
       }
       await axios.post(`/work_start/${id}`, query)
-      if(!this.registedStart) this.registedStart =true
+      if(!this.registedStart) this.registedStart = true
       setTimeout(() => {
-        this.$emit('close-modal')
+        this.$store.dispatch('attendance/changeModal', false)
+        this.myAttendance(this.year, this.month)
+        this.finishLoading()
+      }, 3000)
+    },
+
+    /**
+     * 休憩時間の登録、終了時間の登録
+     */
+    async sheetUpdate(end_time, breake_time, remarks) {
+      const query = {
+        id: this.$store.getters['attendance/sheet_id'],
+        end_time: end_time,
+        breake_time: breake_time,
+        remarks: remarks
+      }
+
+      await axios.put(`work/${query.id}`, query)
+      setTimeout(() => {
+        this.$store.dispatch('attendance/changeModal', false)
         this.myAttendance(this.year, this.month)
         this.finishLoading()
       }, 3000)
@@ -108,6 +143,6 @@ export default {
   },
   created() {
     this.setWeek()
-  }
+  },
 }
 </script>

@@ -4,8 +4,8 @@ import router from './router'
 import store from './store'
 
 
-// axios
-import '@/services/axios'
+// auth
+import '@/services/auth'
 
 //font awesome
 import { library } from "@fortawesome/fontawesome-svg-core";

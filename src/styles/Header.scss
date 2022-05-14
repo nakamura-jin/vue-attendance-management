@@ -19,6 +19,7 @@
   &__nav {
     display: flex;
     line-height: 60px;
+    position: relative;
   }
   &__user {
     margin-right: 20px;
@@ -27,5 +28,22 @@
   &__logout {
     font-size: 24px;
     color: $base-color;
+    margin-right: 20px;
+  }
+  &__tab {
+    position: absolute;
+    top: 60px;
+    right: -10px;
+    background: $base-color;
+    text-align: center;
+    color: white;
+    & button {
+      display: block;
+      width: 80px;
+      height: 40px;
+      line-height: 30px;
+      font-size: 12px;
+      border: 1px solid #fff;
+    }
   }
 }
