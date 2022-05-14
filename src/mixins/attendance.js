@@ -12,7 +12,9 @@ export default {
     };
   },
   computed: {
-
+    attendanceList() {
+      return this.$store.getters["attendance/attendance"];
+    },
   },
   methods: {
     /**
@@ -39,7 +41,7 @@ export default {
         let week = this.checkWeek(weekFormat);
         day.push({ day: i, week: week });
       }
-      this.setDate = day;
+      this.$store.dispatch("attendance/createDateList", day);
     },
 
     /**
@@ -61,9 +63,27 @@ export default {
             response.data.attendance
           );
           setTimeout(() => {
+            this.judgeModal();
             this.finishLoading();
           }, 500);
         });
+    },
+
+    /**
+     * 平日かつ開始時間がない場合は自動でモーダルを出す
+     */
+    async judgeModal() {
+      // const response = await axios.get('/holiday')
+      // const holiday = response.data.holiday
+      const holiday = false;
+      const list = this.$store.getters["attendance/attendance"];
+      const check = list.some((item) => {
+        const judge = holiday === false && item.date === this.date || holiday === true
+        if (judge) {
+          return true;
+        }
+      });
+      if(!check) this.$store.dispatch('attendance/changeModal', true)
     },
 
     /**
