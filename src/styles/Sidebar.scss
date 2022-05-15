@@ -1,0 +1,15 @@
+/**
+ * Sidebar
+ */
+.sidebar {
+  background: $base-color;
+  width: 66px;
+  &__icon {
+    padding: 20px 15px;
+    font-size: 30px;
+    color: #fff;
+  }
+  &__link{
+    margin-bottom: 30px;
+  }
+}

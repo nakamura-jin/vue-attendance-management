@@ -3,8 +3,8 @@
 </style>
 
 <template>
-  <div class="modal" v-if="isModal">
-    <div class="modal__card">
+  <div class="modal" v-if="isModal" @click="hideModal">
+    <div class="modal__card" @click.stop>
       <div class="modal__head">
         <h3 class="modal__today">{{ today }}({{ week }})</h3>
         <button @click="closeModal"><font-awesome-icon icon="fa-solid fa-xmark" /></button>
@@ -43,6 +43,7 @@ import attendance from '@/mixins/attendance'
 
 import axios from 'axios'
 export default {
+
   mixins:[loading, attendance],
   data() {
     return {
@@ -72,6 +73,11 @@ export default {
     }
   },
   methods: {
+
+    hideModal() {
+      this.$store.dispatch('attendance/changeModal', false)
+    },
+
     /**
      * 今日の曜日取得
      */

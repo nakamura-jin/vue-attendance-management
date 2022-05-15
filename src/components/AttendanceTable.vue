@@ -5,7 +5,7 @@
 <template>
   <div class="list">
     <table>
-      <tr>
+      <tr class="list__header">
         <th class="list__ttl-day">日付</th>
         <th class="list__ttl-start">出勤時間</th>
         <th class="list__ttl-end">退勤時間</th>
@@ -18,11 +18,11 @@
         <td class="list__start">{{ getAttendance(data).start_time }}</td>
         <td class="list__end">{{ getAttendance(data).end_time }}</td>
         <td class="list__breake">{{ getAttendance(data).breake_time }}</td>
-        <template>
+        <transition>
           <td class="list__remarks" v-if="getAttendance(data).remarks && hoverFlag !== data.day" @mouseover="hoverAction(data)">{{ getAttendance(data).remarks | omittedText20}}</td>
           <td class="list__remarks" v-else-if="getAttendance(data).remarks && hoverFlag === data.day" @mouseleave="hoverLeave(data)">{{ getAttendance(data).remarks }}</td>
           <td class="list__remarks" v-else>なし</td>
-        </template>
+        </transition>
         <td class="list__edit"><button><font-awesome-icon icon="fa-solid fa-pen" /></button></td>
       </tr>
     </table>

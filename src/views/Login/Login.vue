@@ -6,7 +6,7 @@
   <div class="container">
     <div class="login">
       <div class="login__logo">
-        <router-link to="/"><img src="@/assets/img/Logo-large.png" alt=""></router-link>
+        <router-link to="/"><img src="@/assets/img/logo-green.png" alt=""></router-link>
       </div>
       <h2 class="login__ttl">ログイン</h2>
       <div class="login__form">
@@ -50,10 +50,15 @@ export default {
     async login() {
       this.startLoading()
       auth.login(this.form).then(() => {
-      setTimeout(() => {
-        this.$router.push('/attendance')
-        this.finishLoading()
-      },3000)
+        const checkRole = JSON.parse(sessionStorage.getItem('user')).role
+        setTimeout(() => {
+          if(checkRole === 1) {
+            this.$router.push('/admin/attendance')
+          } else {
+            this.$router.push('/attendance')
+          }
+          this.finishLoading()
+        },3000)
       }).catch(() => {
         setTimeout(() => {
           this.error = '認証に失敗しました'
