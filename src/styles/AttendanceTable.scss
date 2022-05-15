@@ -6,6 +6,14 @@
   width: 100%;
   background: #fff;
   margin-top: 26px;
+  display: block;
+  overflow-y: scroll;
+  max-height: 500px;
+  &__header {
+    background: $sub-color;
+    position: sticky;
+    top: 0;
+  }
   &__ttl-day {
     width: 80px;
   }

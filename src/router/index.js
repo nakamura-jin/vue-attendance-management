@@ -23,6 +23,16 @@ const routes = [
         beforeEnter: authGuard,
         component: () =>import(/* webpackChankName "Attendance" */ "../views/Attendance/Attendance.vue"),
       },
+      {
+        path: "/admin/attendance",
+        beforeEnter: authGuard,
+        component: () =>import(/* webpackChankName "AdminAttendance" */ "../views/admin/Attendance/AdminAttendance.vue"),
+      },
+      {
+        path: "/workers",
+        beforeEnter: authGuard,
+        component: () =>import(/* webpackChankName "WorkersList" */ "../views/admin/Workers/WorkersList.vue"),
+      }
     ],
   },
 ];

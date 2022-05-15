@@ -73,17 +73,17 @@ export default {
      * 平日かつ開始時間がない場合は自動でモーダルを出す
      */
     async judgeModal() {
-      // const response = await axios.get('/holiday')
-      // const holiday = response.data.holiday
-      const holiday = false;
+      const response = await axios.get("/holiday");
+      const holiday = response.data.holiday;
       const list = this.$store.getters["attendance/attendance"];
       const check = list.some((item) => {
-        const judge = holiday === false && item.date === this.date || holiday === true
+        const judge =
+          (holiday === false && item.date === this.date) || holiday === true || item.month !== dayjs().month() + 1
         if (judge) {
           return true;
         }
       });
-      if(!check) this.$store.dispatch('attendance/changeModal', true)
+      if (!check) this.$store.dispatch("attendance/changeModal", true);
     },
 
     /**
