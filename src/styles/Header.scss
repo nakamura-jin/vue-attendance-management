@@ -3,7 +3,7 @@
  */
 .header {
   height: 60px;
-  background: #fff;
+  background: $base-color;
   &__container {
     display:flex;
     justify-content: space-between;
@@ -21,29 +21,48 @@
     line-height: 60px;
     position: relative;
   }
-  &__user {
+  &__user_name {
     margin-right: 20px;
+    color: #fff;
     font-family: $main-font;
   }
   &__logout {
     font-size: 24px;
-    color: $base-color;
+    color: #fff;
     margin-right: 20px;
   }
   &__tab {
     position: absolute;
     top: 60px;
     right: -10px;
-    background: $base-color;
+    background: #fff;
     text-align: center;
-    color: white;
+    font-family: $main-font;
+    font-weight: bold;
+    color: $base-color;
+    z-index: 100;
     & button {
       display: block;
-      width: 80px;
+      width: 100px;
       height: 40px;
       line-height: 30px;
-      font-size: 12px;
-      border: 1px solid #fff;
+      font-size: 14px;
+      border: 1px solid $base-color;
     }
+  }
+
+  &__admin {
+    height: 60px;
+    background: #fff;
+  }
+  &__admin_name {
+    margin-right: 20px;
+    color: $base-color;
+    font-family: $main-font;
+  }
+  &__admin_logout {
+    font-size: 24px;
+    color: $base-color;
+    margin-right: 20px;
   }
 }

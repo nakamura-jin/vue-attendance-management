@@ -3,14 +3,15 @@
 </style>
 
 <template>
-  <div class="header">
+  <div :class="{ header__admin : admin , header : !admin }">
     <div class="header__container">
       <div class="header__logo">
-        <img src="@/assets/img/Logo-large.png" alt="">
+        <img v-if="admin" src="@/assets/img/logo-green.png" alt="">
+        <img v-else src="@/assets/img/logo-white.png" alt="">
       </div>
       <div class="header__nav">
-        <p class="header__user">{{ userName }}</p>
-        <div class="header__logout">
+        <p :class="{ header__admin_name : admin, header__user_name : !admin }">{{ userName }}</p>
+        <div :class="{ header__admin_logout : admin, header__logout : !admin }">
           <button @click="show = !show">
             <font-awesome-icon icon="fa-solid fa-user" />
           </button>
@@ -30,7 +31,7 @@
 export default {
   data() {
     return {
-      show: false
+      show: false,
     }
   },
   methods: {
@@ -48,6 +49,13 @@ export default {
     userName() {
       const user = JSON.parse(sessionStorage.getItem('user'))
       return user.name
+    },
+    admin() {
+      const role = JSON.parse(sessionStorage.getItem('user')).role
+      if(role === 1) {
+        return true
+      }
+      return false
     }
   }
 }

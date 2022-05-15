@@ -1,0 +1,12 @@
+/*
+ * AdminAttendance
+ */
+
+.attendance {
+  font-family: $main-font;
+  &__ttl {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 36px;
+  }
+}
