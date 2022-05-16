@@ -1,11 +1,11 @@
 <style lang="scss" scoped>
-  @import './AdminAttendance.scss';
+  @import './WorkerAttendance.scss';
 </style>
 
 <template>
   <div class="attendance">
     <Modal />
-    <h3 class="attendance__ttl">月別リスト</h3>
+    <h3 class="attendance__ttl">{{ name }}</h3>
       <select-month />
       <attendance-table />
   </div>
@@ -24,10 +24,13 @@ export default {
     SelectMonth,
     Modal
   },
-  beforeRouteEnter(to, from, next) {
-    sessionStorage.removeItem('worker_id')
-    sessionStorage.removeItem('name')
-    next()
+  data() {
+    return {
+      name: ''
+    }
+  },
+  created() {
+    this.name = sessionStorage.getItem('name')
   }
 }
 </script>

@@ -8,11 +8,9 @@ export default new Vuex.Store({
   state: {
     loading: false,
     month: '',
-    user: '',
   },
   getters: {
     month: (state) => state.month,
-    user: (state) => state.user
   },
   mutations: {
     START_LOADING(state) {
@@ -24,17 +22,11 @@ export default new Vuex.Store({
     MONTH(state, month) {
       state.month = month
     },
-    USER(state, user) {
-      state.user = user
-    }
   },
   actions: {
     month({ commit }, month) {
       commit('MONTH',month)
     },
-    user({ commit }, user) {
-      commit('USER', user)
-    }
   },
   modules: { attendance },
 });
