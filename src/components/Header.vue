@@ -12,7 +12,7 @@
       <div class="header__nav">
         <p :class="{ header__admin_name : admin, header__user_name : !admin }">{{ userName }}</p>
         <div :class="{ header__admin_logout : admin, header__logout : !admin }">
-          <button @click="show = !show">
+          <button @click="show = !show" v-click-outside="outSide">
             <font-awesome-icon icon="fa-solid fa-user" />
           </button>
         </div>
@@ -28,11 +28,15 @@
 </template>
 
 <script>
+import ClickOutside from 'vue-click-outside'
 export default {
   data() {
     return {
       show: false,
     }
+  },
+  directives: {
+    ClickOutside
   },
   methods: {
     openModal(){
@@ -43,6 +47,9 @@ export default {
       sessionStorage.removeItem('token')
       sessionStorage.removeItem('user')
       this.$router.push('/login')
+    },
+    outSide() {
+      this.show = false
     }
   },
   computed: {

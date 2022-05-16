@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Root from '../views/Root/Root.vue'
-import { authGuard } from './authGuard'
+import { authGuard, admin } from './authGuard'
 
 Vue.use(VueRouter)
 
@@ -25,13 +25,18 @@ const routes = [
       },
       {
         path: "/admin/attendance",
-        beforeEnter: authGuard,
+        beforeEnter: admin,
         component: () =>import(/* webpackChankName "AdminAttendance" */ "../views/admin/Attendance/AdminAttendance.vue"),
       },
       {
         path: "/workers",
-        beforeEnter: authGuard,
+        beforeEnter: admin,
         component: () =>import(/* webpackChankName "WorkersList" */ "../views/admin/Workers/WorkersList.vue"),
+      },
+      {
+        path: "/worker_list",
+        beforeEnter: authGuard,
+        component: () =>import(/* webpackChankName "WorkerAttendance" */ "../views/admin/Workers/WorkerAttendance.vue"),
       }
     ],
   },
