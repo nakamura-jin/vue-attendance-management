@@ -66,7 +66,7 @@ export default {
             response.data.attendance
           );
           setTimeout(() => {
-            // this.judgeModal();
+            this.judgeModal();
             this.finishLoading();
           }, 500);
         });

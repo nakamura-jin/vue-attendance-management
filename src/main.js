@@ -7,6 +7,9 @@ import store from './store'
 // auth
 import '@/services/auth'
 
+//vae-validate
+import '@/plugins/vee-validate'
+
 //font awesome
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
