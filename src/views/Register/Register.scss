@@ -1,0 +1,58 @@
+/**
+ * Register
+ */
+
+.register {
+  font-family: $main-font;
+  &__container {
+    width: 600px;
+  }
+  &__ttl {
+    margin: 30px 0;
+    text-align: center;
+    font-size: 36px;
+  }
+  &__card {
+    background: #fff;
+    margin: 60px 0;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  &__form {
+    margin: 0 auto;
+  }
+  input:-webkit-autofill, input, select {
+    box-shadow: 0 0 0px 1000px $sub-color inset;
+    width: 400px;
+    margin: 16px 20px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+  }
+  &__button {
+    display: flex;
+    justify-content: center;
+    @include button-style();
+    margin: 20px auto;
+  }
+  &__error {
+    display: flex;
+    justify-content: center;
+    color: red;
+  }
+}
+
+table {
+  margin: 0 auto;
+}
+th {
+  width: 50%;
+  text-align: right;
+  line-height: 60px;
+}
+
+
+
+
+
+

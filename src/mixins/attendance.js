@@ -9,6 +9,8 @@ export default {
       year: parseInt(dayjs().format("YYYY")),
       month: parseInt(dayjs().format("MM")),
       date: parseInt(dayjs().format("DD")),
+      id: null,
+      sheetMonth: null,
     };
   },
   computed: {
@@ -48,11 +50,12 @@ export default {
      * リスト取得
      */
     async myAttendance(setYear, setMonth) {
-      const id = JSON.parse(sessionStorage.getItem("user")).id;
+      this.id = parseInt(JSON.parse(sessionStorage.getItem('worker_id')))
+      if(!this.id) this.id = JSON.parse(sessionStorage.getItem("user")).id;
       await axios
         .get("/attendance", {
           params: {
-            id: id,
+            id: this.id,
             year: setYear,
             month: setMonth,
           },
@@ -70,20 +73,23 @@ export default {
     },
 
     /**
-     * 平日かつ開始時間がない場合は自動でモーダルを出す
+     * 条件でモーダルを自動表示
      */
     async judgeModal() {
       const response = await axios.get("/holiday");
       const holiday = response.data.holiday;
       const list = this.$store.getters["attendance/attendance"];
-      const check = list.some((item) => {
-        const judge =
-          (holiday === false && item.date === this.date) || holiday === true || item.month !== dayjs().month() + 1
-        if (judge) {
-          return true;
-        }
-      });
-      if (!check) this.$store.dispatch("attendance/changeModal", true);
+      if (list.lenth !== 0) {
+        const check = list.some((item) => {
+          const judge = (holiday === false && item.date === this.date) || holiday === true;
+          this.sheetMonth = item.month;
+          if (judge) {
+            return true;
+          }
+        });
+        const worker_id = sessionStorage.getItem('worker_id');
+        if (!check && this.sheetMonth === this.month && !worker_id ) this.$store.dispatch("attendance/changeModal", true);
+      }
     },
 
     /**
