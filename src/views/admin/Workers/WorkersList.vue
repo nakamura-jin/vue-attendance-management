@@ -10,7 +10,7 @@
   <div class="workers">
     <h3 class="workers__ttl">社員一覧</h3>
     <div class="workers__search">
-      <input type="text"/>
+      <input type="text" v-model="keyword" />
     </div>
     <table>
       <tr class="workers__header">
@@ -21,7 +21,7 @@
         <th>編集</th>
         <th>削除</th>
       </tr>
-      <template v-for="worker in workers">
+      <template v-for="worker in filterdWorkers">
         <tr :key="worker.id">
           <td>{{ worker.worker_id }}</td>
           <td>{{ worker.name }}</td>
@@ -44,6 +44,19 @@ export default {
   data() {
     return {
       workers: [],
+      keyword: '',
+    }
+  },
+  computed: {
+    filterdWorkers() {
+      let arrayWorkers = [];
+      for(let i in this.workers) {
+        let worker = this.workers[i];
+        if(worker.name.indexOf(this.keyword) !== -1 || String(worker.worker_id).indexOf(this.keyword) !== -1) {
+          arrayWorkers.push(worker);
+        }
+      }
+      return arrayWorkers
     }
   },
   methods: {
