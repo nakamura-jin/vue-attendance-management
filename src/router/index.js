@@ -8,12 +8,18 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: "/login",
-    component: () =>import(/* webpackChankName "login"*/ "../views/Login/Login.vue"),
+    component: () =>
+      import(/* webpackChankName "login"*/ "../views/Login/Login.vue"),
   },
   {
     path: "/",
     component: Root,
     children: [
+      {
+        path: "/register",
+        component: () =>
+          import(/* webpackChankName "register"*/ "../views/Register/Register.vue"),
+      },
       {
         path: "/",
         redirect: "attendance",
@@ -21,23 +27,35 @@ const routes = [
       {
         path: "/attendance",
         beforeEnter: authGuard,
-        component: () =>import(/* webpackChankName "Attendance" */ "../views/Attendance/Attendance.vue"),
+        component: () =>
+          import(
+            /* webpackChankName "Attendance" */ "../views/Attendance/Attendance.vue"
+          ),
       },
       {
         path: "/admin/attendance",
         beforeEnter: admin,
-        component: () =>import(/* webpackChankName "AdminAttendance" */ "../views/admin/Attendance/AdminAttendance.vue"),
+        component: () =>
+          import(
+            /* webpackChankName "AdminAttendance" */ "../views/admin/Attendance/AdminAttendance.vue"
+          ),
       },
       {
         path: "/workers",
         beforeEnter: admin,
-        component: () =>import(/* webpackChankName "WorkersList" */ "../views/admin/Workers/WorkersList.vue"),
+        component: () =>
+          import(
+            /* webpackChankName "WorkersList" */ "../views/admin/Workers/WorkersList.vue"
+          ),
       },
       {
         path: "/worker_list",
         beforeEnter: authGuard,
-        component: () =>import(/* webpackChankName "WorkerAttendance" */ "../views/admin/Workers/WorkerAttendance.vue"),
-      }
+        component: () =>
+          import(
+            /* webpackChankName "WorkerAttendance" */ "../views/admin/Workers/WorkerAttendance.vue"
+          ),
+      },
     ],
   },
 ];

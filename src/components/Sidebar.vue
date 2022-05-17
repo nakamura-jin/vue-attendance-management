@@ -6,7 +6,7 @@
     <div class="sidebar__icon">
       <router-link to="/admin/attendance"><font-awesome-icon icon="fa-solid fa-list" class="sidebar__link" /></router-link>
       <router-link to="/workers"><font-awesome-icon icon="fa-solid fa-address-book" class="sidebar__link" /></router-link>
-      <router-link to="/"><font-awesome-icon icon="fa-solid fa-address-card" class="sidebar__link" /></router-link>
+      <router-link to="/register"><font-awesome-icon icon="fa-solid fa-address-card" class="sidebar__link" /></router-link>
     </div>
   </div>
 </template>
