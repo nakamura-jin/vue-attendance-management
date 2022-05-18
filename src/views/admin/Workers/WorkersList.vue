@@ -16,7 +16,7 @@
       <tr class="workers__header">
         <th>社員番号</th>
         <th>氏名</th>
-        <th>フリガナ</th>
+        <th>メールアドレス</th>
         <th>月別リスト</th>
         <th>編集</th>
         <th>削除</th>
@@ -25,9 +25,9 @@
         <tr :key="worker.id">
           <td>{{ worker.worker_id }}</td>
           <td>{{ worker.name }}</td>
-          <td></td>
+          <td>{{ worker.email }}</td>
           <td><font-awesome-icon icon="fa-solid fa-list" class="workers__list" @click="workerAttendance(worker)" /></td>
-          <td><font-awesome-icon icon="fa-solid fa-pen" class="workers__edit" /></td>
+          <td><font-awesome-icon icon="fa-solid fa-pen" class="workers__edit" @click="workerEdit(worker.id)" /></td>
           <td><font-awesome-icon icon="fa-solid fa-trash-can" class="workers__delete" /></td>
         </tr>
       </template>
@@ -73,6 +73,10 @@ export default {
         this.myAttendance(this.year, this.month)
         this.$router.push('/worker_list')
       } else return
+    },
+    workerEdit(id) {
+      sessionStorage.setItem('id', id )
+      this.$router.push('/worker_edit')
     }
   },
   created() {

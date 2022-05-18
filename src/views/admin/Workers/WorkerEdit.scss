@@ -1,11 +1,11 @@
 /**
- * Register
+ * WorkerEdit
  */
-
-.register {
+.edit {
   font-family: $main-font;
   &__container {
     width: 600px;
+    margin: 0 auto;
   }
   &__ttl {
     margin: 30px 0;
@@ -14,7 +14,7 @@
   }
   &__card {
     background: #fff;
-    margin: 60px 0;
+    margin-top: 120px;
     padding: 20px;
     border-radius: 5px;
   }
@@ -56,5 +56,5 @@ button {
 }
 
 :disabled {
-  @include disabled-button-style
+  @include disabled-button-style();
 }
