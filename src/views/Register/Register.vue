@@ -29,7 +29,8 @@
                 <tr>
                   <th>権限付与: </th>
                   <td>
-                    <select class="register__role" v-model="form.role" name="役職">
+                    <select ref="role" class="register__role" v-model="form.role" name="役職">
+                      <option value="0">以下を選択してください</option>
                       <option value="2">なし</option>
                       <option value="1">あり</option>
                     </select>
@@ -55,7 +56,7 @@
               </validation-provider>
             </table>
             <div class="register__button">
-              <button type="submit" :disabled="ObserverProps.invalid || !ObserverProps.validated">登録</button>
+              <button type="submit" :disabled="ObserverProps.invalid || !ObserverProps.validated || form.role == 0">登録</button>
             </div>
           </form>
         </validation-observer>
@@ -74,7 +75,7 @@ export default {
       form: {
         name: '',
         email: '',
-        role: 2,
+        role: 0,
         password: '',
         password_confirmed: '',
       }

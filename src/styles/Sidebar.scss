@@ -4,6 +4,7 @@
 .sidebar {
   background: $base-color;
   width: 66px;
+  height: calc(100vh - 60px);
   &__icon {
     padding: 20px 15px;
     font-size: 30px;

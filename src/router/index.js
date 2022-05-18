@@ -50,10 +50,18 @@ const routes = [
       },
       {
         path: "/worker_list",
-        beforeEnter: authGuard,
+        beforeEnter: admin,
         component: () =>
           import(
             /* webpackChankName "WorkerAttendance" */ "../views/admin/Workers/WorkerAttendance.vue"
+          ),
+      },
+      {
+        path: "/worker_edit",
+        beforeEnter: admin,
+        component: () =>
+          import(
+            /* webpackChankName "WorkerEdit" */ "../views/admin/Workers/WorkerEdit.vue"
           ),
       },
     ],

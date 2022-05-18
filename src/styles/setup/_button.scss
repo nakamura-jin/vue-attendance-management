@@ -6,3 +6,12 @@
   background: $base-color;
   color: #fff
 }
+
+@mixin disabled-button-style($width: 200px, $height: 48px, $border-radius: 5px) {
+  width: $width;
+  height: $height;
+  text-align: center;
+  border-radius: $border-radius;
+  background: #eee;
+  color: #fff;
+}
