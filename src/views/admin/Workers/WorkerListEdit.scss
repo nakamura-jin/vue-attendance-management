@@ -1,0 +1,70 @@
+/**
+ * WorkerListEdit
+ */
+.list-edit {
+  font-family: $main-font;
+  &__container {
+    width: 600px;
+    margin: 0 auto;
+  }
+  &__ttl {
+    margin: 30px 0;
+    text-align: center;
+    font-size: 36px;
+  }
+  &__card {
+    background: #fff;
+    margin-top: 120px;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  &__form {
+    margin: 0 auto;
+  }
+  input:-webkit-autofill, input {
+    box-shadow: 0 0 0px 1000px $sub-color inset;
+    width: 140px;
+    height: 40px;
+    margin: 8px;
+    padding: 6px 10px;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+  }
+  &__button {
+    display: flex;
+    justify-content: center;
+    @include button-style();
+    margin: 20px auto;
+  }
+  &__error {
+    display: flex;
+    justify-content: center;
+    color: red;
+  }
+}
+
+table {
+  margin: 0 auto;
+}
+
+th {
+  width: 50%;
+  padding: 20px 50px 20px 0;
+  text-align: right;
+}
+
+button {
+  width: 100%;
+}
+
+textarea {
+  width: 100%;
+  height: 7rem;
+  margin: 8px;
+  padding: 6px 10px;
+}
+
+:disabled {
+  @include disabled-button-style();
+}

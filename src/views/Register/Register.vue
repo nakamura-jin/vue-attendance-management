@@ -85,8 +85,7 @@ export default {
     async register() {
       this.startLoading()
       await axios.post('/register', this.form)
-      .then(response => {
-        console.log(response.data)
+      .then(() => {
         setTimeout(() => {
           this.$router.push('/')
           this.finishLoading()

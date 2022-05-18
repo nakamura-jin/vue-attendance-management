@@ -42,12 +42,10 @@ table {
   max-height: 500px;
   background: #fff;
 }
-
-th, td {
-  height: 38px;
-  line-height: 38px;
-  text-align: center;
-  border: 1px solid #999;
+th {
+  font-size: 14px;
+}
+td {
   &:first-of-type {
     width: 10%;
   }
@@ -58,7 +56,13 @@ th, td {
     text-align: left;
     padding-left: 20px;
   }
-  &:nth-of-type(4), &:nth-of-type(5), &:nth-of-type(6) {
-    width: 10%;
+  &:nth-of-type(4), &:nth-of-type(5), &:nth-of-type(6), &:nth-of-type(7) {
+    width: 8%;
   }
+}
+th, td {
+  height: 38px;
+  line-height: 38px;
+  text-align: center;
+  border: 1px solid #999;
 }
