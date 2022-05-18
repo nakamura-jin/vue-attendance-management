@@ -87,7 +87,7 @@ export default {
       await axios.post('/register', this.form)
       .then(() => {
         setTimeout(() => {
-          this.$router.push('/')
+          this.$router.push('/workers')
           this.finishLoading()
         }, 3000)
       })
