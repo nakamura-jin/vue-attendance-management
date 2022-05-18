@@ -18,7 +18,9 @@ const routes = [
       {
         path: "/register",
         component: () =>
-          import(/* webpackChankName "register"*/ "../views/Register/Register.vue"),
+          import(
+            /* webpackChankName "register"*/ "../views/Register/Register.vue"
+          ),
       },
       {
         path: "/",
@@ -49,6 +51,14 @@ const routes = [
           ),
       },
       {
+        path: "/worker_edit",
+        beforeEnter: admin,
+        component: () =>
+          import(
+            /* webpackChankName "WorkerEdit" */ "../views/admin/Workers/WorkerEdit.vue"
+          ),
+      },
+      {
         path: "/worker_list",
         beforeEnter: admin,
         component: () =>
@@ -57,11 +67,11 @@ const routes = [
           ),
       },
       {
-        path: "/worker_edit",
+        path: "/worker_list/edit/:id/:year/:month/:day",
         beforeEnter: admin,
         component: () =>
           import(
-            /* webpackChankName "WorkerEdit" */ "../views/admin/Workers/WorkerEdit.vue"
+            /* webpackChankName "WorkerListEdit" */ "../views/admin/Workers/WorkerListEdit.vue"
           ),
       },
     ],

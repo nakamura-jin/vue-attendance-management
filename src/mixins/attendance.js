@@ -50,8 +50,8 @@ export default {
      * リスト取得
      */
     async myAttendance(setYear, setMonth) {
-      this.id = parseInt(JSON.parse(sessionStorage.getItem('worker_id')))
-      if(!this.id) this.id = JSON.parse(sessionStorage.getItem("user")).id;
+      this.id = parseInt(JSON.parse(sessionStorage.getItem("worker_id")));
+      if (!this.id) this.id = JSON.parse(sessionStorage.getItem("user")).id;
       await axios
         .get("/attendance", {
           params: {
@@ -81,14 +81,16 @@ export default {
       const list = this.$store.getters["attendance/attendance"];
       if (list.lenth !== 0) {
         const check = list.some((item) => {
-          const judge = (holiday === false && item.date === this.date) || holiday === true;
+          const judge =
+            (holiday === false && item.date === this.date) || holiday === true;
           this.sheetMonth = item.month;
           if (judge) {
             return true;
           }
         });
-        const worker_id = sessionStorage.getItem('worker_id');
-        if (!check && this.sheetMonth === this.month && !worker_id ) this.$store.dispatch("attendance/changeModal", true);
+        const worker_id = sessionStorage.getItem("worker_id");
+        if (!check && this.sheetMonth === this.month && !worker_id)
+          this.$store.dispatch("attendance/changeModal", true);
       }
     },
 
@@ -102,5 +104,12 @@ export default {
       this.startLoading();
       this.myAttendance(year, month);
     },
+
+    attendanceEdit(day) {
+      const list = this.$store.getters['attendance/attendance']
+      const year = list[0].year
+      const month = list[0].month
+      this.$router.push(`/worker_list/edit/${this.id}/${year}/${month}/${day}`)
+    }
   },
 };

@@ -17,7 +17,8 @@
         <th>社員番号</th>
         <th>氏名</th>
         <th>メールアドレス</th>
-        <th>月別リスト</th>
+        <th>権限</th>
+        <th>リスト</th>
         <th>編集</th>
         <th>削除</th>
       </tr>
@@ -26,6 +27,8 @@
           <td>{{ worker.worker_id }}</td>
           <td>{{ worker.name }}</td>
           <td>{{ worker.email }}</td>
+          <td v-if="worker.role === 1">あり</td>
+          <td v-else>なし</td>
           <td><font-awesome-icon icon="fa-solid fa-list" class="workers__list" @click="workerAttendance(worker)" /></td>
           <td><font-awesome-icon icon="fa-solid fa-pen" class="workers__edit" @click="workerEdit(worker.id)" /></td>
           <td><font-awesome-icon icon="fa-solid fa-trash-can" class="workers__delete" /></td>
