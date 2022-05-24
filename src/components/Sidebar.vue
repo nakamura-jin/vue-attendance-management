@@ -20,8 +20,8 @@ export default {
   },
   computed: {
     admin() {
-      const role = JSON.parse(sessionStorage.getItem('user')).role
-      if(role === 1) {
+      const storage = JSON.parse(sessionStorage.getItem('data'))
+      if(storage.user.role === 1) {
         return true
       }
       return false

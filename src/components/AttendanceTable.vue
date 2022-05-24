@@ -23,7 +23,7 @@
           <td class="list__remarks" v-else-if="getAttendance(data).remarks && hoverFlag === data.day" @mouseleave="hoverLeave(data)">{{ getAttendance(data).remarks }}</td>
           <td class="list__remarks" v-else>なし</td>
         </transition>
-        <td class="list__edit"><button><font-awesome-icon icon="fa-solid fa-pen" /></button></td>
+        <td class="list__edit"><button><font-awesome-icon icon="fa-solid fa-pen" @click="attendanceEdit(data.day)" /></button></td>
       </tr>
     </table>
   </div>
@@ -76,6 +76,11 @@ export default {
   created() {
     this.createDay()
     this.myAttendance(this.year, this.month)
+  },
+  mouted() {
+    window.onload = () => {
+      this.finishLoading()
+    }
   }
 }
 </script>

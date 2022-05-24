@@ -29,6 +29,7 @@
 
 <script>
 import ClickOutside from 'vue-click-outside'
+import $auth from '@/services/auth'
 export default {
   data() {
     return {
@@ -44,9 +45,8 @@ export default {
       this.show = false
     },
     logout() {
-      sessionStorage.removeItem('token')
-      sessionStorage.removeItem('user')
-      this.$router.push('/login')
+      $auth.logout()
+      this.$router.push("/login");
     },
     outSide() {
       this.show = false
@@ -54,12 +54,12 @@ export default {
   },
   computed: {
     userName() {
-      const user = JSON.parse(sessionStorage.getItem('user'))
-      return user.name
+      const storage = JSON.parse(sessionStorage.getItem('data'))
+      return storage.user.name
     },
     admin() {
-      const role = JSON.parse(sessionStorage.getItem('user')).role
-      if(role === 1) {
+      const storage = JSON.parse(sessionStorage.getItem('data'))
+      if(storage.user.role === 1) {
         return true
       }
       return false

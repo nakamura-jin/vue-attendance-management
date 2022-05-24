@@ -66,8 +66,9 @@
 </template>
 
 <script>
-import axios from 'axios'
 import loading from '@/mixins/loading'
+import $http from '@/services/httpService'
+
 export default {
   mixins: [loading],
   data() {
@@ -84,14 +85,9 @@ export default {
   methods: {
     async register() {
       this.startLoading()
-      await axios.post('/register', this.form)
-      .then(response => {
-        console.log(response.data)
-        setTimeout(() => {
-          this.$router.push('/')
-          this.finishLoading()
-        }, 3000)
-      })
+      await $http.post('/register', this.form)
+      this.$router.push('/workers')
+      setTimeout(() => this.finishLoading(), 1000)
     }
   }
 }

@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
-import axios from "axios";
 import loading from "@/mixins/loading";
+import $http from '@/services/httpService'
 
 export default {
   mixins: [loading],
@@ -50,45 +50,39 @@ export default {
      * リスト取得
      */
     async myAttendance(setYear, setMonth) {
-      this.id = parseInt(JSON.parse(sessionStorage.getItem('worker_id')))
-      if(!this.id) this.id = JSON.parse(sessionStorage.getItem("user")).id;
-      await axios
-        .get("/attendance", {
-          params: {
-            id: this.id,
-            year: setYear,
-            month: setMonth,
-          },
-        })
-        .then((response) => {
-          this.$store.dispatch(
-            "attendance/myAttendance",
-            response.data.attendance
-          );
-          setTimeout(() => {
-            this.judgeModal();
-            this.finishLoading();
-          }, 500);
-        });
+      const storage = JSON.parse(sessionStorage.getItem("data"));
+      this.id = parseInt(JSON.parse(sessionStorage.getItem("worker_id")));
+      if (!this.id) this.id = storage.user.id;
+      const query = {
+        id: this.id,
+        year: setYear,
+        month: setMonth,
+      };
+      const response = await $http.get("/attendance", query)
+      this.$store.dispatch("attendance/myAttendance", response.data.attendance)
+      this.judgeModal();
+      setTimeout(() => this.finishLoading(), 1000);
     },
 
     /**
      * 条件でモーダルを自動表示
      */
     async judgeModal() {
-      const response = await axios.get("/holiday");
+      const response = await $http.get("/holiday");
       const holiday = response.data.holiday;
       const list = this.$store.getters["attendance/attendance"];
       if (list.lenth !== 0) {
         const check = list.some((item) => {
-          const judge = (holiday === false && item.date === this.date) || holiday === true;
+          const judge =
+            (holiday === false && item.date === this.date) || holiday === true;
           this.sheetMonth = item.month;
           if (judge) {
             return true;
           }
         });
-        const worker_id = sessionStorage.getItem('worker_id');
-        if (!check && this.sheetMonth === this.month && !worker_id ) this.$store.dispatch("attendance/changeModal", true);
+        const worker_id = sessionStorage.getItem("worker_id");
+        if (!check && this.sheetMonth === this.month && !worker_id)
+          this.$store.dispatch("attendance/changeModal", true);
       }
     },
 
@@ -102,5 +96,12 @@ export default {
       this.startLoading();
       this.myAttendance(year, month);
     },
+
+    attendanceEdit(day) {
+      const list = this.$store.getters['attendance/attendance']
+      const year = list[0].year
+      const month = list[0].month
+      this.$router.push(`/worker_list/edit/${this.id}/${year}/${month}/${day}`)
+    }
   },
 };

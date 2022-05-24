@@ -30,7 +30,7 @@
       </div>
       <div class="modal__register">
         <button v-if="started" @click="register">登録</button>
-        <button v-else @click="sheetUpdate(end_time, breake_time)">登録済み</button>
+        <button v-else @click="sheetUpdate(end_time, breake_time, remarks)">登録済み</button>
       </div>
     </div>
   </div>
@@ -40,8 +40,8 @@
 import dayjs from 'dayjs'
 import loading from '@/mixins/loading'
 import attendance from '@/mixins/attendance'
+import $http from '@/services/httpService'
 
-import axios from 'axios'
 export default {
 
   mixins:[loading, attendance],
@@ -119,15 +119,14 @@ export default {
         start_time: this.start_time,
         user_id: id
       }
-      await axios.post(`/work_start/${id}`, query)
-      if(!this.registedStart) this.registedStart = true
-      setTimeout(() => {
-        this.$store.dispatch('attendance/changeModal', false)
-        this.myAttendance(this.year, this.month)
-        this.finishLoading()
-      }, 3000)
-    },
+      await $http.post(`/work_start/${id}`, query)
 
+      if(!this.registedStart) this.registedStart = true
+
+      this.$store.dispatch('attendance/changeModal', false)
+      this.myAttendance(this.year, this.month)
+      setTimeout(() => this.finishLoading(), 3000)
+    },
     /**
      * 休憩時間の登録、終了時間の登録
      */
@@ -138,13 +137,11 @@ export default {
         breake_time: breake_time,
         remarks: remarks
       }
-
-      await axios.put(`work/${query.id}`, query)
-      setTimeout(() => {
-        this.$store.dispatch('attendance/changeModal', false)
-        this.myAttendance(this.year, this.month)
-        this.finishLoading()
-      }, 3000)
+      this.startLoading()
+      await $http.put(`work/${query.id}`, query)
+      this.$store.dispatch('attendance/changeModal', false)
+      this.myAttendance(this.year, this.month)
+      setTimeout(() => this.finishLoading(), 3000)
     }
   },
   created() {
