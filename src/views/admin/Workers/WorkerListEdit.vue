@@ -35,8 +35,9 @@
 </template>
 
 <script>
-import axios from 'axios'
 import loading from '@/mixins/loading'
+import $http from '@/services/httpService'
+
 export default {
   mixins: [loading],
   data() {
@@ -56,14 +57,14 @@ export default {
   },
   methods: {
     async getWorkerEditData() {
-      await axios.get(`/admin/worker_list/${this.id}`, {
-        params: {
-          year: this.year,
-          month: this.month,
-          date: this.date
-        }
-      })
-      .then(response => this.listData = response.data.attendance )
+      const query = {
+        year: this.year,
+        month: this.month,
+        date: this.date
+      }
+
+      const response = await $http.get(`/admin/worker_list/${this.id}`, query)
+      this.listData = response.data.attendance
       this.form.start = this.listData[0].start_time
       this.form.end = this.listData[0].end_time
       this.form.breake = this.listData[0].breake_time
@@ -81,13 +82,9 @@ export default {
         breake: this.form.breake,
         remarks: this.form.remarks
       }
-      await axios.put(`/admin/worker_list/${this.id}`, query)
-      .then(() => {
-        setTimeout(() => {
-          this.finishLoading()
-          this.$router.push('/worker_list')
-        }, 3000)
-      })
+      await $http.put(`/admin/worker_list/${this.id}`, query)
+      this.$router.push('/worker_list')
+      setTimeout(() => this.finishLoading(), 1000)
     }
   },
   created() {

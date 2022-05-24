@@ -76,6 +76,11 @@ export default {
   created() {
     this.createDay()
     this.myAttendance(this.year, this.month)
+  },
+  mouted() {
+    window.onload = () => {
+      this.finishLoading()
+    }
   }
 }
 </script>
