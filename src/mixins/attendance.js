@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
-import axios from "axios";
 import loading from "@/mixins/loading";
+import $http from '@/services/httpService'
 
 export default {
   mixins: [loading],
@@ -50,33 +50,25 @@ export default {
      * リスト取得
      */
     async myAttendance(setYear, setMonth) {
+      const storage = JSON.parse(sessionStorage.getItem("data"));
       this.id = parseInt(JSON.parse(sessionStorage.getItem("worker_id")));
-      if (!this.id) this.id = JSON.parse(sessionStorage.getItem("user")).id;
-      await axios
-        .get("/attendance", {
-          params: {
-            id: this.id,
-            year: setYear,
-            month: setMonth,
-          },
-        })
-        .then((response) => {
-          this.$store.dispatch(
-            "attendance/myAttendance",
-            response.data.attendance
-          );
-          setTimeout(() => {
-            this.judgeModal();
-            this.finishLoading();
-          }, 500);
-        });
+      if (!this.id) this.id = storage.user.id;
+      const query = {
+        id: this.id,
+        year: setYear,
+        month: setMonth,
+      };
+      const response = await $http.get("/attendance", query)
+      this.$store.dispatch("attendance/myAttendance", response.data.attendance)
+      this.judgeModal();
+      setTimeout(() => this.finishLoading(), 1000);
     },
 
     /**
      * 条件でモーダルを自動表示
      */
     async judgeModal() {
-      const response = await axios.get("/holiday");
+      const response = await $http.get("/holiday");
       const holiday = response.data.holiday;
       const list = this.$store.getters["attendance/attendance"];
       if (list.lenth !== 0) {

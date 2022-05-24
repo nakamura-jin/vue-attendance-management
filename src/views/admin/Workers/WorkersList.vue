@@ -6,7 +6,7 @@
   <div class="workers">
     <h3 class="workers__ttl">社員一覧</h3>
     <div class="workers__search">
-      <input type="text" v-model="keyword" />
+      <input type="text" v-model="keyword" placeholder="社員IDもしくは氏名" />
     </div>
     <table>
       <tr class="workers__header">
@@ -49,9 +49,9 @@
 </template>
 
 <script>
-import axios from 'axios'
 import attendance from '@/mixins/attendance'
 import loading from '@/mixins/loading'
+import $http from '@/services/httpService'
 
 export default {
   mixins: [ attendance, loading ],
@@ -64,6 +64,9 @@ export default {
     }
   },
   computed: {
+    /**
+     * リアルタイム検索
+     */
     filterdWorkers() {
       let arrayWorkers = [];
       for(let i in this.workers) {
@@ -77,12 +80,12 @@ export default {
   },
   methods: {
     async getWorkers(){
-      await axios.get('/admin/workers')
-      .then(response => this.workers = response.data.data)
-      .catch(err => console.log(err))
+      const response = await $http.get('/admin/workers')
+      this.workers = response.data.data
     },
     workerAttendance(worker) {
-      const setAdmin = JSON.parse(sessionStorage.getItem('user')).role
+      const setAdmin = JSON.parse(sessionStorage.getItem('data')).user.role
+      console.log(setAdmin)
       if(setAdmin === 1) {
         sessionStorage.setItem('worker_id', worker.id)
         sessionStorage.setItem('name', worker.name)
@@ -107,14 +110,10 @@ export default {
 
     async destroy() {
       this.startLoading()
-      await axios.delete(`admin/worker/${this.deleteId}`)
-      .then(() => {
-        setTimeout(() => {
-          this.getWorkers()
-          this.deleteModal = false
-          this.finishLoading()
-        }, 3000)
-      })
+      await $http.delete(`admin/worker/${this.deleteId}`)
+      this.getWorkers()
+      this.deleteModal = false
+      setTimeout(() => this.finishLoading(), 2000)
     }
 
   },

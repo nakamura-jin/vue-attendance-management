@@ -35,6 +35,7 @@
 <script>
 import loading from '@/mixins/loading'
 import auth from '@/services/auth'
+// import get from 'lodash/get'
 export default {
   mixins: [loading],
   data() {
@@ -50,15 +51,10 @@ export default {
     async login() {
       this.startLoading()
       auth.login(this.form).then(() => {
-        const checkRole = JSON.parse(sessionStorage.getItem('user')).role
-        setTimeout(() => {
-          if(checkRole === 1) {
-            this.$router.push('/admin/attendance')
-          } else {
-            this.$router.push('/attendance')
-          }
-          this.finishLoading()
-        },3000)
+        const checkRole = JSON.parse(sessionStorage.getItem('data'))
+        if(checkRole.user.role === 1) {
+          this.$router.push('/admin/attendance')
+        }
       }).catch(() => {
         setTimeout(() => {
           this.error = '認証に失敗しました'
@@ -66,6 +62,9 @@ export default {
         }, 1000)
       })
     }
+  },
+  destroyed() {
+    this.$router.go({path: '/login', force: true})
   }
 }
 </script>

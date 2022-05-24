@@ -50,8 +50,8 @@
 </template>
 
 <script>
-import axios from 'axios'
 import loading from '@/mixins/loading'
+import $http from '@/services/httpService'
 export default {
   mixins: [loading],
   data() {
@@ -69,25 +69,18 @@ export default {
   methods: {
     async getWorkerData() {
       this.id = sessionStorage.getItem('id')
-      await axios.get('/admin/worker', {
-        params: {
-          id: this.id
-        }
-      })
-      .then(response => {
-        this.form.name = response.data.worker[0].name
-        this.form.email = response.data.worker[0].email
-        this.form.role = response.data.worker[0].role
-      })
+      const query = { id: this.id }
+      const response = await $http.get('/admin/worker', query)
+      this.form.name = response.data.worker[0].name
+      this.form.email = response.data.worker[0].email
+      this.form.role = response.data.worker[0].role
     },
 
     async edit() {
       this.startLoading()
-      await axios.put(`/admin/worker/${this.id}`, this.form)
-      setTimeout(() => {
-        this.$router.push('/workers')
-        this.finishLoading()
-      }, 3000)
+      await $http.put(`/admin/worker/${this.id}`, this.form)
+      this.$router.push('/workers')
+      setTimeout(() => this.finishLoading(), 1000)
     },
   },
   created() {
