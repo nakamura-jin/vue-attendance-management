@@ -35,7 +35,7 @@
 <script>
 import loading from '@/mixins/loading'
 import auth from '@/services/auth'
-// import get from 'lodash/get'
+
 export default {
   mixins: [loading],
   data() {
@@ -55,6 +55,7 @@ export default {
         if(checkRole.user.role === 1) {
           this.$router.push('/admin/attendance')
         }
+        this.$router.push('/attendance')
       }).catch(() => {
         setTimeout(() => {
           this.error = '認証に失敗しました'
