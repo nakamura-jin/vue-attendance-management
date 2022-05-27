@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-  @import './login.scss';
+  @import './Login.scss';
 </style>
 
 <template>
