@@ -24,7 +24,7 @@ const routes = [
       },
       {
         path: "/",
-        redirect: "attendance",
+        redirect: "/attendance",
       },
       {
         path: "/attendance",

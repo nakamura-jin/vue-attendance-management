@@ -1,5 +1,5 @@
 // import $cookies from 'vue-cookies'
-import auth from '@/services/auth'
+// import auth from '@/services/auth'
 
 const authGuard = async (to, from, next) => {
   const storage = JSON.parse(sessionStorage.getItem("data"))
@@ -13,7 +13,7 @@ const authGuard = async (to, from, next) => {
 
 const admin = async (to, from, next) => {
   const storage = JSON.parse(sessionStorage.getItem("data"));
-  console.log('guard: ', auth.token_expiration)
+  // console.log('guard: ', auth.token_expiration)
   if (
     storage.user.role === 1 &&
     storage.access_token
