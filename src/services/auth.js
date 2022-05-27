@@ -5,7 +5,7 @@ import { rejectService } from '@/router/authGuard'
 import store from '@/store/index'
 
 // axios.defaults.baseURL = 'http://localhost:8000/api'
-axios.defaults.baseURL = " https://my-attendance-app.herokuapp.com/api"
+axios.defaults.baseURL = "https://my-attendance-app.herokuapp.com/api"
 
 class AuthService {
   constructor() {
