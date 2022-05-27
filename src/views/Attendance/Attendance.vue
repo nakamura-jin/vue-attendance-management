@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-  @import './attendance.scss';
+  @import './Attendance.scss';
 </style>
 
 <template>
