@@ -85,7 +85,7 @@ export default {
     },
     workerAttendance(worker) {
       const setAdmin = JSON.parse(sessionStorage.getItem('data')).user.role
-      console.log(setAdmin)
+      // console.log(setAdmin)
       if(setAdmin === 1) {
         sessionStorage.setItem('worker_id', worker.id)
         sessionStorage.setItem('name', worker.name)

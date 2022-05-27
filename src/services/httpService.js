@@ -13,18 +13,18 @@ class HttpService {
 
   init() {
     this.http.interceptors.request.use((config) => {
-      console.log('リクエスト: ', config)
+      // console.log('リクエスト: ', config)
       const access_token = get(auth.value, 'access_token', '')
       config.headers["Authorization"] = "Bearer " + access_token;
       return config;
     });
 
     this.http.interceptors.response.use((response) => {
-      console.log('レスポンスデータ: ', response);
+      // console.log('レスポンスデータ: ', response);
       return response;
     },
       (error) => {
-        console.log('error: ', error)
+        // console.log('error: ', error)
         if (error.response.data.message === "Unauthenticated.") {
           auth.refresh()
         }
