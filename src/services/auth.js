@@ -20,8 +20,8 @@ class AuthService {
   get token_expiration() {
     const auth = this.value;
     const period = get(auth, "expires_in", 0);
-    console.log(period, dayjs().unix());
-    console.log("有効期限: ", dayjs().format("YYYY-MM-DD HH:mm"));
+    // console.log(period, dayjs().unix());
+    // console.log("有効期限: ", dayjs().format("YYYY-MM-DD HH:mm"));
     return period > dayjs().unix();
   }
 
@@ -86,12 +86,12 @@ class AuthService {
     // const interceptor = this.auth.interceptors.response.use()
     const interceptor = this.auth.interceptors.response.use(
       (response) => {
-        console.log(response.data);
+        // console.log(response.data);
         this.setToken(response.data);
         return response;
       },
       (error) => {
-        console.log("reponse: ", error);
+        // console.log("reponse: ", error);
         rejectService(true);
         return Promise.reject(error);
       }
@@ -109,11 +109,11 @@ class AuthService {
     storage.user = data.user;
     await this.success(storage);
 
-    console.log(
-      "トークン新有効期限： ",
-      dayjs(data.token_period).format("YYYY-MM-DD HH:mm")
-    );
-    console.log("再発行されたトークン： ", data.access_token);
+    // console.log(
+    //   "トークン新有効期限： ",
+    //   dayjs(data.token_period).format("YYYY-MM-DD HH:mm")
+    // );
+    // console.log("再発行されたトークン： ", data.access_token);
   }
 
   logout() {
