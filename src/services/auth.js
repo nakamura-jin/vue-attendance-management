@@ -4,7 +4,8 @@ import dayjs from 'dayjs'
 import { rejectService } from '@/router/authGuard'
 import store from '@/store/index'
 
-axios.defaults.baseURL = 'http://localhost:8000/api'
+// axios.defaults.baseURL = 'http://localhost:8000/api'
+axios.defaults.baseURL = "https://attendance-manegement.netlify.app/api";
 
 class AuthService {
   constructor() {
