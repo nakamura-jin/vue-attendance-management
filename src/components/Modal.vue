@@ -111,7 +111,7 @@ export default {
      */
     async register() {
       this.startLoading()
-      const id = JSON.parse(sessionStorage.getItem('user')).id
+      const id = JSON.parse(sessionStorage.getItem('data')).user.id
       const query = {
         year: this.year,
         month: this.month,
