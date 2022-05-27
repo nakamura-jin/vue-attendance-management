@@ -17,6 +17,7 @@ const routes = [
     children: [
       {
         path: "/register",
+        name: 'register',
         component: () =>
           import(
             /* webpackChankName "register"*/ "../views/Register/Register.vue"
@@ -24,10 +25,11 @@ const routes = [
       },
       {
         path: "/",
-        redirect: "/attendance",
+        redirect: "attendance",
       },
       {
         path: "/attendance",
+        name: 'attendance',
         beforeEnter: authGuard,
         component: () =>
           import(
